@@ -22,4 +22,5 @@ docker compose up --build
     * Can improve each system will connect to rabbitmq and be producer for new logs
     * Can add check if playerId exist before adding to score and leaderboard
     * depend on the load maybe it will be good to add replica for mongodb for game score
+    * add security to rabbitmq and mongo
 * fix needed: load env right now need to push to server the .env and run "npm run build" and "npm run start" to start the program
