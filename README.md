@@ -111,9 +111,9 @@ docker compose up --build
 ## Guideline:
 * Used MongoDB and RabbitMq
 * Future Scale and improvement:
-  * Can add cache for leaderboard - repeated action, possible to run every X min and update caching
-  * Can be added Validation Like existing email and username and return error 409 Conflict
-  * Can improve each system will connect to rabbitmq and be producer for new logs
-  * Can add check if playerId exist before adding to score and leaderboard
-  * depend on the load maybe it will be good to add replica for mongodb for game score
+    * Can add cache for leaderboard - repeated action, possible to run every X min and update caching
+    * Can be added Validation Like existing email and username and return error 409 Conflict
+    * Can improve each system will connect to rabbitmq and be producer for new logs
+    * Can add check if playerId exist before adding to score and leaderboard
+    * depend on the load maybe it will be good to add replica for mongodb for game score
 * fix needed: load env right now need to push to server the .env and run "npm run build" and "npm run start" to start the program
