@@ -134,6 +134,10 @@ game-score/**/node_modules
 game-score/dist/
 game-score/temp/
 game-score/**/**/*.log
+.idea
+
+
+
 
 leaderboard/**/node_modules
 leaderboard/dist/
@@ -149,3 +153,21 @@ player-management/**/node_modules
 player-management/dist/
 player-management/temp/
 player-management/**/**/*.log
+/log-management/config/.env.production
+/game-score/config/.env.development
+/leaderboard/config/.env.development
+/log-management/config/.env.development
+/player-management/config/.env.development
+/game-score/config/.env.production
+/leaderboard/config/.env.production
+/player-management/config/.env.production
+/game-score/config/.env.test
+/leaderboard/config/.env.test
+/log-management/config/.env.test
+/player-management/config/.env.test
+/.idea/.gitignore
+/game-score/.idea/.gitignore
+/leaderboard/.idea/.gitignore
+/log-management/.idea/.gitignore
+/player-management/.idea/.gitignore
+/.idea/
