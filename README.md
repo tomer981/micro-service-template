@@ -2,105 +2,11 @@
 #### note: the arc need to be linux/amd64 or linux/arm64/v8 (tested on m1)
 ## requirement
 ### .env file
-
-```bash
-touch game-score/config/.env.development
-ENV_FILE="game-score/config/.env.development"
-
-# Environment
-echo "NODE_ENV=development" > $ENV_FILE
-
-# Server
-echo "PORT=3000" >> $ENV_FILE
-echo "HOST=localhost" >> $ENV_FILE
-
-# Setup jet-logger
-echo "JET_LOGGER_MODE=CONSOLE" >> $ENV_FILE
-echo "JET_LOGGER_FILEPATH=jet-logger.log" >> $ENV_FILE
-echo "JET_LOGGER_TIMESTAMP=TRUE" >> $ENV_FILE
-echo "JET_LOGGER_FORMAT=LINE" >> $ENV_FILE
-
-# Mongo
-echo "MONGO_URI=mongodb://mongo:27017/db" >> $ENV_FILE
-echo "MONGO_INITDB_ROOT_USERNAME=root" >> $ENV_FILE
-echo "MONGO_INITDB_ROOT_PASSWORD=example" >> $ENV_FILE
-```
-
-```bash
-touch leaderboard/config/.env.development
-ENV_FILE="leaderboard/config/.env.development"
-
-# Environment
-echo "NODE_ENV=development" > $ENV_FILE
-
-# Server
-echo "PORT=3000" >> $ENV_FILE
-echo "HOST=localhost" >> $ENV_FILE
-
-# Setup jet-logger
-echo "JET_LOGGER_MODE=CONSOLE" >> $ENV_FILE
-echo "JET_LOGGER_FILEPATH=jet-logger.log" >> $ENV_FILE
-echo "JET_LOGGER_TIMESTAMP=TRUE" >> $ENV_FILE
-echo "JET_LOGGER_FORMAT=LINE" >> $ENV_FILE
-
-# Mongo
-echo "MONGO_URI=mongodb://mongo:27017/db" >> $ENV_FILE
-echo "MONGO_INITDB_ROOT_USERNAME=root" >> $ENV_FILE
-echo "MONGO_INITDB_ROOT_PASSWORD=example" >> $ENV_FILE
-```
-
-```bash
-touch log-management/config/.env.development
-ENV_FILE="log-management/config/.env.development"
-
-# Environment
-echo "NODE_ENV=development" > $ENV_FILE
-
-# Server
-echo "PORT=3000" >> $ENV_FILE
-echo "HOST=localhost" >> $ENV_FILE
-
-# Setup jet-logger
-echo "JET_LOGGER_MODE=CONSOLE" >> $ENV_FILE
-echo "JET_LOGGER_FILEPATH=jet-logger.log" >> $ENV_FILE
-echo "JET_LOGGER_TIMESTAMP=TRUE" >> $ENV_FILE
-echo "JET_LOGGER_FORMAT=LINE" >> $ENV_FILE
-
-# Mongo
-echo "MONGO_URI=mongodb://mongo:27017/db" >> $ENV_FILE
-echo "MONGO_INITDB_ROOT_USERNAME=root" >> $ENV_FILE
-echo "MONGO_INITDB_ROOT_PASSWORD=example" >> $ENV_FILE
-
-# RabbitMq
-echo "RABBITMQ_URI=rabbitmq" >> $ENV_FILE
-echo "RABBITMQ_QUEUE_LOGS=log_queue" >> $ENV_FILE
-```
-
-```bash
-touch player-management/config/.env.development
-ENV_FILE="player-management/config/.env.development"
-
-# Environment
-echo "NODE_ENV=development" > $ENV_FILE
-
-# Server
-echo "PORT=3000" >> $ENV_FILE
-echo "HOST=localhost" >> $ENV_FILE
-
-# Setup jet-logger
-echo "JET_LOGGER_MODE=CONSOLE" >> $ENV_FILE
-echo "JET_LOGGER_FILEPATH=jet-logger.log" >> $ENV_FILE
-echo "JET_LOGGER_TIMESTAMP=TRUE" >> $ENV_FILE
-echo "JET_LOGGER_FORMAT=LINE" >> $ENV_FILE
-
-# Mongo
-echo "MONGO_URI=mongodb://mongo:27017/db" >> $ENV_FILE
-echo "MONGO_INITDB_ROOT_USERNAME=root" >> $ENV_FILE
-echo "MONGO_INITDB_ROOT_PASSWORD=example" >> $ENV_FILE
-```
-
 ## RUN
+
 ```bash
+chmod +x setup_env.sh
+./setup_env.sh
 docker compose up --build
 ```
 
@@ -116,4 +22,5 @@ docker compose up --build
     * Can improve each system will connect to rabbitmq and be producer for new logs
     * Can add check if playerId exist before adding to score and leaderboard
     * depend on the load maybe it will be good to add replica for mongodb for game score
+    * add security to rabbitmq and mongo
 * fix needed: load env right now need to push to server the .env and run "npm run build" and "npm run start" to start the program
