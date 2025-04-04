@@ -1,5 +1,5 @@
+import 'module-alias/register';
 import logger from 'jet-logger';
-
 import ENV from '@src/common/ENV';
 import server from './server';
 import {connectToMongoDB} from '@src/config/mongoConfig';

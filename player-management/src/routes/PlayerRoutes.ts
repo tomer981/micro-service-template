@@ -1,6 +1,6 @@
 import HttpStatusCodes from '@src/common/HttpStatusCodes';
 import PlayerService from '@src/services/PlayerService';
-import Player from 'src/models/common/Player';
+import Player from '@src/models/common/Player';
 
 import {IReq, IRes, parseReq} from './common';
 import {transIsObjectId} from '@src/util/validators';

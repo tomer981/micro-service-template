@@ -1,21 +1,26 @@
-FROM node:22.14.0-alpine3.21
+FROM node:22.14.0-alpine3.21 AS builder
 LABEL authors="tomer_avivi"
-EXPOSE 3000
-WORKDIR /app
 
-RUN npm install -g nodemon
+WORKDIR /app
 
 COPY package*.json ./
 COPY tsconfig*.json ./
 COPY eslint.config.ts ./
 COPY scripts/build.ts ./scripts/
 
-
 RUN npm install
-COPY src /app/src
-ENV NODE_ENV=$NODE_ENV
+
+COPY src ./src
 
 RUN npm run build
 
-CMD ["npm", "run", "dev:hot"]
-#CMD ["tail", "-f", "/dev/null"]
+FROM node:22.14.0-alpine3.21 AS runtime
+
+WORKDIR /app
+
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package*.json ./
+
+RUN npm install --only=production
+
+CMD ["npm", "run", "start"]

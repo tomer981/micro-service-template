@@ -2,9 +2,10 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "CommonJS",
-    "lib": ["ES2020"],                        
+    "lib": ["ES2020"],
     "strict": true,
     "baseUrl": "./",
+    "outDir": "dist",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -12,9 +13,9 @@
       "@src/*": ["src/*"]
     },
     "useUnknownInCatchVariables": false,
-    "outDir": "temp",
     "sourceMap": false,
-    "removeComments": true
+    "removeComments": true,
+    "rootDir": "./"
   },
   "include": [
     "src/**/*.ts",

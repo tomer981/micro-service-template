@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import logger from 'jet-logger';
 
 import ENV from '@src/common/ENV';

@@ -1,6 +1,6 @@
 import HttpStatusCodes from '@src/common/HttpStatusCodes';
 import LogService from '@src/services/LogService';
-import Log from 'src/models/common/Log';
+import Log from '@src/models/common/Log';
 import {IReq, IRes, parseReq} from './common';
 
 const Validators = {

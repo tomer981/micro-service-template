@@ -2,7 +2,7 @@ services:
   game-score:
     build:
       context: game-score
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: game-score
     hostname: game-score
     networks:
@@ -32,7 +32,7 @@ services:
   leaderboard:
     build:
       context: leaderboard
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: leaderboard
     hostname: leaderboard
     networks:
@@ -62,7 +62,7 @@ services:
   log-management:
     build:
       context: log-management
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: log-management
     hostname: log-management
     env_file:
@@ -96,7 +96,7 @@ services:
   player-management:
     build:
       context: player-management
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: player-management
     hostname: player-management
     networks:
@@ -169,6 +169,8 @@ services:
   mongo-express:
     image: mongo-express:1.0.2-20-alpine3.19
     restart: always
+    container_name: mongo-express
+    hostname: mongo-express
     networks:
       - backend-network
     ports:
