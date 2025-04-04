@@ -6,7 +6,8 @@
     "strict": true,
     "baseUrl": "./",
     "esModuleInterop": true,                 
-    "skipLibCheck": true,                     
+    "skipLibCheck": true,
+    "outDir": "./dist",
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "@src/*": ["src/*"]
@@ -15,7 +16,6 @@
   },
   "include": [
     "src/**/*.ts",
-    "config.ts",
     "spec/**/*.ts",
     "scripts",
     "eslint.config.ts"
@@ -27,7 +27,6 @@
     "swc": true,
     "require": [
       "tsconfig-paths/register",
-      "./config.ts"
     ],
   }
 }

@@ -5,6 +5,7 @@
     "lib": ["ES2020"],                   
     "strict": true,
     "baseUrl": "./",
+    "outDir": "dist",
     "esModuleInterop": true,                 
     "skipLibCheck": true,                     
     "forceConsistentCasingInFileNames": true,
@@ -17,13 +18,11 @@
     "swc": true,
     "require": [
       "tsconfig-paths/register",
-      "./config.ts"
     ],
   },
   "include": [
     "src/**/*.ts",
     "spec/**/*.ts",
-    "config.ts",
     "scripts",
     "eslint.config.ts"
   ],
