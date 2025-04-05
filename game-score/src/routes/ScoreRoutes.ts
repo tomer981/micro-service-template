@@ -17,8 +17,9 @@ async function add(req: IReq, res: IRes) {
   res.status(HttpStatusCodes.CREATED).end();
 }
 
-async function getTop(_: IReq, res: IRes) {
-  const topScores: IScoreDocument[] = await ScoreService.getTopScores(10);
+async function getTop(req: IReq, res: IRes) {
+  const { limit = 10 } = req.query;
+  const topScores: IScoreDocument[] = await ScoreService.getTopScores(Number(limit));
   res.status(HttpStatusCodes.OK).json(topScores);
 }
 

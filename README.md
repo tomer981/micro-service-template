@@ -14,12 +14,12 @@ docker compose up --build
 * https://www.postman.com/devloperstomer/workspace/whalo-test/collection/15797626-4c3b863d-16c5-4d8d-aaa3-e1a28e82e40b?action=share&creator=15797626
 
 
-## Guideline:
+## Note:
 * Used MongoDB and RabbitMq
 * Future Scale and improvement:
     * Can add cache for leaderboard - repeated action, possible to run every X min and update caching
-    * Can be added Validation Like existing email and username and return error 409 Conflict
     * Can improve each system will connect to rabbitmq and be producer for new logs
     * Can add check if playerId exist before adding to score and leaderboard
-    * depend on the load maybe it will be good to add replica for mongodb for game score
+    * Depend on the load maybe it will be good to add replica for mongodb for game score
     * add security to rabbitmq and mongo
+    * Don't want to do overkill but i probably use joi library for schema validation and put in on routes/index.ts before the request as a middleware

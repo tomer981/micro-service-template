@@ -9,8 +9,8 @@ export interface DeleteResult {
 export interface IPlayerDocument extends IPlayer, Document {}
 
 const playerSchema = new Schema<IPlayerDocument>({
-  username: {type: String, required: true},
-  email: {type: String, required: true},
+  username: {type: String, required: true, unique: true},
+  email: {type: String, required: true, unique: true},
 }, {
   timestamps: true,
 });

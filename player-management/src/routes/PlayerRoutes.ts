@@ -27,9 +27,8 @@ async function getPlayer(req: IReq, res: IRes) {
 
 async function deletePlayer(req: IReq, res: IRes) {
   const {playerId} = Validators.getId(req.params);
-  const deleteInfo: DeleteResult = await PlayerService.deletePlayer(playerId);
-  res.status(HttpStatusCodes.OK)
-    .json({message: `${deleteInfo.deletedCount} Player deleted`});
+  const result: { message: string } = await PlayerService.deletePlayer(playerId);
+  res.status(HttpStatusCodes.OK).json(result);
 }
 
 async function updatePlayer(req: IReq, res: IRes) {
