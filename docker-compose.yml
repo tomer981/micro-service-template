@@ -64,6 +64,40 @@ services:
       RABBITMQ_URI: ${RABBITMQ_URI:-rabbitmq}
       RABBITMQ_QUEUE_LOGS: ${RABBITMQ_QUEUE_LOGS:-log_queue}
 
+  log-workers-rp1:
+    build:
+      context: log-workers
+      dockerfile: Dockerfile.dev
+    container_name: log-workers-rp1
+    hostname: log-workers-rp1
+    env_file:
+      - log-workers/config/.env.development
+    networks:
+      - backend-network
+    ports:
+      - "3007:3000"
+    volumes:
+      - ./log-workers/src:/app/src
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${PORT:-3000}
+      HOST: ${HOST:-localhost}
+      DISABLE_HELMET: ${DISABLE_HELMET:-FALSE}
+      JET_LOGGER_MODE: ${JET_LOGGER_MODE:-CONSOLE}
+      JET_LOGGER_FILEPATH: ${JET_LOGGER_FILEPATH:-jet-logger.log}
+      JET_LOGGER_TIMESTAMP: ${JET_LOGGER_TIMESTAMP:-TRUE}
+      JET_LOGGER_FORMAT: ${JET_LOGGER_FORMAT:-LINE}
+      MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017/db}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-root}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-example}
+      RABBITMQ_URI: ${RABBITMQ_URI:-rabbitmq}
+      RABBITMQ_QUEUE_LOGS: ${RABBITMQ_QUEUE_LOGS:-log_queue}
+
 #  game-score:
 #    build:
 #      context: game-score
@@ -244,7 +278,7 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
-      ME_CONFIG_BASICAUTH: false
+      ME_CONFIG_BASICAUTH: "false"
 
 networks:
   backend-network:

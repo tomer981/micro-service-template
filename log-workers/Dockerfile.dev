@@ -3,15 +3,18 @@ LABEL authors="tomer_avivi"
 EXPOSE 3000
 WORKDIR /app
 
-RUN npm install -g nodemon
+RUN npm install -g nodemon pm2 ts-node
 
 COPY package*.json ./
 COPY tsconfig*.json ./
-
+COPY ecosystem.config.js ./
 
 RUN npm install
+
 COPY src /app/src
 
 RUN npm run build
 
-CMD ["npm", "run", "dev"]
+
+#CMD ["npm", "run", "dev"]
+CMD ["pm2-runtime", "start", "ecosystem.config.js"]

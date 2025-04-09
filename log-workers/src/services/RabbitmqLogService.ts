@@ -28,6 +28,7 @@ export class RabbitmqLogService implements IStreamQueueService {
             consumerRef: `consumer-${RabbitmqQueueLogs}`,
             offset: Offset.first(),
             creditPolicy: policy,
+            singleActive: true,
         };
 
         const client = this.queueClient.getClient();
