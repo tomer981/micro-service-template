@@ -330,7 +330,7 @@ enum HttpStatusCodes {
 
     /**
      * The server either does not recognize the request method, or it lacks the ability to fulfill the request.
-     * Usually this implies future availability (e.g., a new feature of a web-service API).
+     * Usually this implies future availability (e.g., a new feature of a web-services API).
      */
     NOT_IMPLEMENTED = 501,
 

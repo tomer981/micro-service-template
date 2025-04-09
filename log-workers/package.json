@@ -1,0 +1,50 @@
+{
+  "name": "log-workers",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "NODE_ENV=development ts-node -r tsconfig-paths/register ./src/index.ts",
+    "start": "NODE_ENV=production node -r ./dist/src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@stylistic/eslint-plugin-js": "^4.2.0",
+    "@stylistic/eslint-plugin-ts": "^4.2.0",
+    "@swc/wasm": "^1.11.18",
+    "eslint-plugin-n": "^17.17.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "inversify": "^7.5.0",
+    "jet-env": "^1.1.4",
+    "jet-logger": "^2.0.1",
+    "jet-validators": "^1.4.0",
+    "module-alias": "^2.2.3",
+    "mongoose": "^8.13.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.2",
+    "rabbitmq-stream-js-client": "^0.6.0",
+    "reflect-metadata": "^0.2.2",
+    "typescript-eslint": "^8.29.1"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.11.18",
+    "@types/body-parser": "^1.19.5",
+    "@types/inversify": "^2.0.32",
+    "@types/module-alias": "^2.0.4",
+    "@types/mongoose": "^5.11.96",
+    "@types/morgan": "^1.9.9",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.14.0",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.8.3"
+  },
+  "_moduleAliases": {
+    "@src": "src"
+  }
+}

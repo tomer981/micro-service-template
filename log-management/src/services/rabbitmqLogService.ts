@@ -41,6 +41,8 @@ async function processMessageQueue(message: Message) {
 
 export async function startWorkerLog() {
   startMongoDBBatchInterval();
+  await createStream(ENV.RabbitmqQueueLogs, 5 * 1e9);
+  publisher = await createProducer(ENV.RabbitmqQueueLogs);
   const comprehensivePolicy = new ComprehensiveRateLimitPolicy(
     { capacity: 100, rate: 50 },
     { rate: 30, capacity: 60 },
@@ -53,8 +55,6 @@ export async function startWorkerLog() {
     offset: firstOffset,
     creditPolicy: comprehensivePolicy,
   };
-  await createStream(ENV.RabbitmqQueueLogs, 5 * 1e9);
-  publisher = await createProducer(ENV.RabbitmqQueueLogs);
   await createConsumer(rabbitmqParam, processMessageQueue);
 }
 

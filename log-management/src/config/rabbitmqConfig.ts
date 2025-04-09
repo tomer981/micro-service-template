@@ -24,7 +24,7 @@ export const connectToRabbitMQ = async () => {
 
     return {connection: client, channel: client};
   } catch (error) {
-logger.err('Failed to connect to RabbitMQ Stream: ' + error);
+    logger.err('Failed to connect to RabbitMQ Stream: ' + error);
     throw error;
   }
 };
@@ -36,7 +36,7 @@ export const disconnectFromRabbitMQ = async () => {
       client = null;
       logger.info('Disconnected from RabbitMQ Stream');
     } else {
-logger.info('No active RabbitMQ Stream connection to disconnect from.');
+    logger.info('No active RabbitMQ Stream connection to disconnect from.');
     }
   } catch (error) {
     logger.err('Error disconnecting from RabbitMQ Stream: ' + error);

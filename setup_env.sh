@@ -30,10 +30,15 @@ generate_env_file() {
         echo "RABBITMQ_URI=rabbitmq" >> "$ENV_FILE"
         echo "RABBITMQ_QUEUE_LOGS=log_queue" >> "$ENV_FILE"
     fi
+
+    if [ "$SERVICE_NAME" == "log-workers" ]; then
+        echo "RABBITMQ_URI=rabbitmq" >> "$ENV_FILE"
+        echo "RABBITMQ_QUEUE_LOGS=log_queue" >> "$ENV_FILE"
+    fi
 }
 
 # List of services
-SERVICES=("game-score" "leaderboard" "log-management" "player-management")
+SERVICES=("game-score" "leaderboard" "log-management" "player-management", "log-rest", "log-workers")
 
 # Loop through services and generate environment files
 for SERVICE in "${SERVICES[@]}"; do

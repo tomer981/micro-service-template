@@ -171,3 +171,5 @@ player-management/**/**/*.log
 /log-management/.idea/.gitignore
 /player-management/.idea/.gitignore
 /.idea/
+log-rest/config/.env.development
+log-workers/config/.env.development

@@ -15,9 +15,9 @@ const ENV = jetEnv({
   JetLoggerFormat: str,
   MongoUri: str,
   RabbitmqUri: str,
+  RabbitmqQueueLogs: str,
   MongoInitdbRootUsername: str,
   MongoInitdbRootPassword: str,
-  RabbitmqQueueLogs: str,
 });
 
 export default ENV;

@@ -7,8 +7,6 @@ RUN npm install -g nodemon
 
 COPY package*.json ./
 COPY tsconfig*.json ./
-COPY eslint.config.ts ./
-COPY scripts/build.ts ./scripts/
 
 
 RUN npm install

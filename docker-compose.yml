@@ -1,21 +1,22 @@
 services:
-  game-score:
+  log-rest:
     build:
-      context: game-score
+      context: log-rest
       dockerfile: Dockerfile.dev
-    container_name: game-score
-    hostname: game-score
+    container_name: log-rest
+    hostname: log-rest
+    restart: on-failure
     networks:
       - backend-network
     ports:
-      - "3000:3000"
+      - "3005:3000"
     volumes:
-      - ./game-score/src:/app/src
+      - ./log-rest/src:/app/src
     depends_on:
-      mongo:
+      rabbitmq:
         condition: service_healthy
     env_file:
-      - game-score/config/.env.development
+      - log-rest/config/.env.development
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${PORT:-3000}
@@ -29,50 +30,20 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-root}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-example}
 
-  leaderboard:
+  log-workers:
     build:
-      context: leaderboard
+      context: log-workers
       dockerfile: Dockerfile.dev
-    container_name: leaderboard
-    hostname: leaderboard
+    container_name: log-workers
+    hostname: log-workers
+    env_file:
+      - log-workers/config/.env.development
     networks:
       - backend-network
     ports:
-      - "3001:3000"
+      - "3006:3000"
     volumes:
-      - ./leaderboard/src:/app/src
-    depends_on:
-      mongo:
-        condition: service_healthy
-    env_file:
-      - leaderboard/config/.env.development
-    environment:
-      NODE_ENV: ${NODE_ENV:-development}
-      PORT: ${PORT:-3000}
-      HOST: ${HOST:-localhost}
-      DISABLE_HELMET: ${DISABLE_HELMET:-FALSE}
-      JET_LOGGER_MODE: ${JET_LOGGER_MODE:-CONSOLE}
-      JET_LOGGER_FILEPATH: ${JET_LOGGER_FILEPATH:-jet-logger.log}
-      JET_LOGGER_TIMESTAMP: ${JET_LOGGER_TIMESTAMP:-TRUE}
-      JET_LOGGER_FORMAT: ${JET_LOGGER_FORMAT:-LINE}
-      MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017/db}
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-root}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-example}
-
-  log-management:
-    build:
-      context: log-management
-      dockerfile: Dockerfile.dev
-    container_name: log-management
-    hostname: log-management
-    env_file:
-      - log-management/config/.env.development
-    networks:
-      - backend-network
-    ports:
-      - "3002:3000"
-    volumes:
-      - ./log-management/src:/app/src
+      - ./log-workers/src:/app/src
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -93,35 +64,129 @@ services:
       RABBITMQ_URI: ${RABBITMQ_URI:-rabbitmq}
       RABBITMQ_QUEUE_LOGS: ${RABBITMQ_QUEUE_LOGS:-log_queue}
 
-  player-management:
-    build:
-      context: player-management
-      dockerfile: Dockerfile.dev
-    container_name: player-management
-    hostname: player-management
-    networks:
-      - backend-network
-    ports:
-      - "3003:3000"
-    volumes:
-      - ./player-management/src:/app/src
-    depends_on:
-      mongo:
-        condition: service_healthy
-    env_file:
-      - player-management/config/.env.development
-    environment:
-      NODE_ENV: ${NODE_ENV:-development}
-      PORT: ${PORT:-3000}
-      HOST: ${HOST:-localhost}
-      DISABLE_HELMET: ${DISABLE_HELMET:-FALSE}
-      JET_LOGGER_MODE: ${JET_LOGGER_MODE:-CONSOLE}
-      JET_LOGGER_FILEPATH: ${JET_LOGGER_FILEPATH:-jet-logger.log}
-      JET_LOGGER_TIMESTAMP: ${JET_LOGGER_TIMESTAMP:-TRUE}
-      JET_LOGGER_FORMAT: ${JET_LOGGER_FORMAT:-LINE}
-      MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017/db}
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-root}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-example}
+#  game-score:
+#    build:
+#      context: game-score
+#      dockerfile: Dockerfile.dev
+#    container_name: game-score
+#    hostname: game-score
+#    networks:
+#      - backend-network
+#    ports:
+#      - "3000:3000"
+#    volumes:
+#      - ./game-score/src:/app/src
+#    depends_on:
+#      mongo:
+#        condition: service_healthy
+#    env_file:
+#      - game-score/config/.env.development
+#    environment:
+#      NODE_ENV: ${NODE_ENV:-development}
+#      PORT: ${PORT:-3000}
+#      HOST: ${HOST:-localhost}
+#      DISABLE_HELMET: ${DISABLE_HELMET:-FALSE}
+#      JET_LOGGER_MODE: ${JET_LOGGER_MODE:-CONSOLE}
+#      JET_LOGGER_FILEPATH: ${JET_LOGGER_FILEPATH:-jet-logger.log}
+#      JET_LOGGER_TIMESTAMP: ${JET_LOGGER_TIMESTAMP:-TRUE}
+#      JET_LOGGER_FORMAT: ${JET_LOGGER_FORMAT:-LINE}
+#      MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017/db}
+#      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-root}
+#      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-example}
+#
+#  leaderboard:
+#    build:
+#      context: leaderboard
+#      dockerfile: Dockerfile.dev
+#    container_name: leaderboard
+#    hostname: leaderboard
+#    networks:
+#      - backend-network
+#    ports:
+#      - "3001:3000"
+#    volumes:
+#      - ./leaderboard/src:/app/src
+#    depends_on:
+#      mongo:
+#        condition: service_healthy
+#    env_file:
+#      - leaderboard/config/.env.development
+#    environment:
+#      NODE_ENV: ${NODE_ENV:-development}
+#      PORT: ${PORT:-3000}
+#      HOST: ${HOST:-localhost}
+#      DISABLE_HELMET: ${DISABLE_HELMET:-FALSE}
+#      JET_LOGGER_MODE: ${JET_LOGGER_MODE:-CONSOLE}
+#      JET_LOGGER_FILEPATH: ${JET_LOGGER_FILEPATH:-jet-logger.log}
+#      JET_LOGGER_TIMESTAMP: ${JET_LOGGER_TIMESTAMP:-TRUE}
+#      JET_LOGGER_FORMAT: ${JET_LOGGER_FORMAT:-LINE}
+#      MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017/db}
+#      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-root}
+#      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-example}
+#
+#  log-management:
+#    build:
+#      context: log-management
+#      dockerfile: Dockerfile.dev
+#    container_name: log-management
+#    hostname: log-management
+#    env_file:
+#      - log-management/config/.env.development
+#    networks:
+#      - backend-network
+#    ports:
+#      - "3002:3000"
+#    volumes:
+#      - ./log-management/src:/app/src
+#    depends_on:
+#      rabbitmq:
+#        condition: service_healthy
+#      mongo:
+#        condition: service_healthy
+#    environment:
+#      NODE_ENV: ${NODE_ENV:-development}
+#      PORT: ${PORT:-3000}
+#      HOST: ${HOST:-localhost}
+#      DISABLE_HELMET: ${DISABLE_HELMET:-FALSE}
+#      JET_LOGGER_MODE: ${JET_LOGGER_MODE:-CONSOLE}
+#      JET_LOGGER_FILEPATH: ${JET_LOGGER_FILEPATH:-jet-logger.log}
+#      JET_LOGGER_TIMESTAMP: ${JET_LOGGER_TIMESTAMP:-TRUE}
+#      JET_LOGGER_FORMAT: ${JET_LOGGER_FORMAT:-LINE}
+#      MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017/db}
+#      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-root}
+#      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-example}
+#      RABBITMQ_URI: ${RABBITMQ_URI:-rabbitmq}
+#      RABBITMQ_QUEUE_LOGS: ${RABBITMQ_QUEUE_LOGS:-log_queue}
+#
+#  player-management:
+#    build:
+#      context: player-management
+#      dockerfile: Dockerfile.dev
+#    container_name: player-management
+#    hostname: player-management
+#    networks:
+#      - backend-network
+#    ports:
+#      - "3003:3000"
+#    volumes:
+#      - ./player-management/src:/app/src
+#    depends_on:
+#      mongo:
+#        condition: service_healthy
+#    env_file:
+#      - player-management/config/.env.development
+#    environment:
+#      NODE_ENV: ${NODE_ENV:-development}
+#      PORT: ${PORT:-3000}
+#      HOST: ${HOST:-localhost}
+#      DISABLE_HELMET: ${DISABLE_HELMET:-FALSE}
+#      JET_LOGGER_MODE: ${JET_LOGGER_MODE:-CONSOLE}
+#      JET_LOGGER_FILEPATH: ${JET_LOGGER_FILEPATH:-jet-logger.log}
+#      JET_LOGGER_TIMESTAMP: ${JET_LOGGER_TIMESTAMP:-TRUE}
+#      JET_LOGGER_FORMAT: ${JET_LOGGER_FORMAT:-LINE}
+#      MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017/db}
+#      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-root}
+#      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-example}
 
   rabbitmq:
     image: rabbitmq:4.0.7-alpine
