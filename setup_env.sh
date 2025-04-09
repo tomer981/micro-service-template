@@ -38,7 +38,7 @@ generate_env_file() {
 }
 
 # List of services
-SERVICES=("game-score" "leaderboard" "log-management" "player-management", "log-rest", "log-workers")
+SERVICES=("game-score" "leaderboard" "log-management" "player-management" "log-rest" "log-workers")
 
 # Loop through services and generate environment files
 for SERVICE in "${SERVICES[@]}"; do
