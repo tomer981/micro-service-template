@@ -2,8 +2,9 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import ENV from "@src/common/ENV";
 import logger from "jet-logger";
+
+import ENV from "@src/common/ENV";
 
 export class Server {
     public static setup(app: Application): void {

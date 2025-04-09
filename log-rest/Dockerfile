@@ -10,15 +10,15 @@ RUN npm install
 
 COPY src ./src
 
-RUN npm run build
-
-FROM node:22.14.0-alpine3.21 AS runtime
-
-WORKDIR /app
-
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package*.json ./
-
 RUN npm install --only=production
+CMD ["tail", "-f", "/dev/null"]
 
-CMD ["npm", "run", "start"]
+#FROM node:22.14.0-alpine3.21 AS runtime
+#
+#WORKDIR /app
+#
+#COPY --from=builder /app/dist ./dist
+#COPY --from=builder /app/package*.json ./
+#
+#
+#CMD ["npm", "run", "start"]

@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
-import { ILogRepository } from "../core/ILogRepository";
-import {ILogDocument, LogModelClass} from "@src/models/LogModel";
-import {LogMessage} from "@src/consumers/LogConsumerWorker";
 import logger from "jet-logger";
 import {Types} from "mongoose";
+import {ILogDocument, LogModelClass} from "@src/models/LogModel";
+import {LogMessage} from "@src/consumers/LogConsumerWorker";
+import { ILogRepository } from "@src/core/ILogRepository";
 
 @injectable()
 export class LogRepository implements ILogRepository {

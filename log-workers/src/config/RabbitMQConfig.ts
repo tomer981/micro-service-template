@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
-import { IQueueConfigClient } from "../core/IQueueConfigClient";
 import {Client, connect} from "rabbitmq-stream-js-client";
 import ENV from "@src/common/ENV";
 import logger from "jet-logger";
+import { IQueueConfigClient } from "@src/core/IQueueConfigClient";
 
 @injectable()
 export class RabbitMQConfig implements IQueueConfigClient {

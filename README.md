@@ -23,3 +23,11 @@ docker compose up --build
     * Depend on the load maybe it will be good to add replica for mongodb for game score
     * add security to rabbitmq and mongo
     * Don't want to do overkill but i probably use joi library for schema validation and put in on routes/index.ts before the request as a middleware
+
+## Update Note:
+* put on comments:
+  * game-score
+  * leaderboard
+  * log-management
+  * player-management
+* work in Dockerfile.dev mode

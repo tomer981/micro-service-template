@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import { INoSQLClient } from "../core/INoSQLClient";
 import { injectable } from "inversify";
 import logger from 'jet-logger';
 import ENV from "@src/common/ENV";
+import { INoSQLClient } from "@src/core/INoSQLClient";
 
 @injectable()
 export class MongoConfig implements INoSQLClient {

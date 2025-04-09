@@ -1,19 +1,19 @@
 // src/index.ts
-import {ILogMessageQueueConfig} from "@src/interfaces/ILogMessageQueueConfig";
-
 import 'reflect-metadata';
 import 'module-alias/register';
+
 import { createExpressServer, useContainer } from 'routing-controllers';
 import { Container } from 'typedi';
+import logger from "jet-logger";
 
 import { Server } from '@src/server';
+import {ILogMessageQueueConfig} from "@src/interfaces/ILogMessageQueueConfig";
 import { LogMessageController } from '@src/controllers/LogMessageController';
 import { ErrorHandlerMiddleware } from '@src/middleware/ErrorHandlerMiddleware';
-import logger from "jet-logger";
 import {LogMessageService} from "@src/services/LogMessageService";
 import {RabbitMqService} from "@src/services/RabbitMqService";
 import {RabbitMqConfig} from "@src/config/RabbitMqConfig";
-import { TOKENS } from './common/InjectionTokens';
+import { TOKENS } from '@src/common/InjectionTokens';
 import {ILogMessageQueueService} from "@src/interfaces/ILogMessageQueueService";
 
 Container.import([

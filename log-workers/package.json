@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "NODE_ENV=development ts-node -r tsconfig-paths/register ./src/index.ts",
-    "start": "NODE_ENV=production node -r ./dist/src"
+    "start": "NODE_ENV=production node -r reflect-metadata dist/index.js"
   },
   "keywords": [],
   "author": "",
